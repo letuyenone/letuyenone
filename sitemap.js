@@ -3,8 +3,7 @@
 // Url: https://www.letuyen.one
 // ---------------------------------------------------
 
-// global arrays
-   var postTitle = new Array();     // array of posttitles
+var postTitle = new Array();     // array of posttitles
    var postUrl = new Array();       // array of posturls
    var postDate = new Array();      // array of post publish dates
    var postSum = new Array();       // array of post summaries
@@ -20,6 +19,7 @@
    var totalPosts =0; //Total number of posts in the blog.
 
 // main callback function
+
 function loadtoc(json) {
 
    function getPostData() {
@@ -78,7 +78,7 @@ function loadtoc(json) {
             var pll = '';
             if ("category" in entry) {
                for (var k = 0; k < entry.category.length; k++) {
-                  pll += '<a href="javascript:filterPosts(\'' + entry.category[k].term + '\');" title="Nhấp vào đây để chọn tất cả các bài đăng có nhãn \'' + entry.category[k].term + '\'">' + entry.category[k].term + '</a>,  ';
+                  pll += '<a href="javascript:filterPosts(\'' + entry.category[k].term + '\');" title="Click here to select all posts with label \'' + entry.category[k].term + '\'">' + entry.category[k].term + '</a>,  ';
                }
             var l = pll.lastIndexOf(',');
             if (l != -1) { pll = pll.substring(0,l); }
@@ -107,7 +107,10 @@ function loadtoc(json) {
    tocLoaded = true;
 }
 
+
+
 // filter and sort functions
+
 
 function filterPosts(filter) {
 // This function changes the filter
@@ -164,40 +167,40 @@ function displayToc(filter) {
 // this function creates a three-column table and adds it to the screen
    var numDisplayed = 0;
    var tocTable = '';
-   var tocHead1 = 'BÀI VIẾT';
-   var tocTool1 = 'Nhấp để sắp xếp theo tiêu đề';
-   var tocHead2 = 'THỜI GIAN';
-   var tocTool2 = 'Nhấp để sắp xếp theo ngày';
-   var tocHead3 = 'NHÃN';
+   var tocHead1 = 'POST TITLE';
+   var tocTool1 = 'Click to sort by title';
+   var tocHead2 = 'POST DATE';
+   var tocTool2 = 'Click to sort by date';
+   var tocHead3 = 'LABELS';
    var tocTool3 = '';
    if (sortBy == "titleasc") { 
-      tocTool1 += ' (giảm dần)';
-      tocTool2 += ' (mới nhất)';
+      tocTool1 += ' (descending)';
+      tocTool2 += ' (newest first)';
    }
    if (sortBy == "titledesc") { 
-      tocTool1 += ' (tăng dần)';
-      tocTool2 += ' (mới nhất)';
+      tocTool1 += ' (ascending)';
+      tocTool2 += ' (newest first)';
    }
    if (sortBy == "dateoldest") { 
-      tocTool1 += ' (tăng dần)';
-      tocTool2 += ' (mới nhất)';
+      tocTool1 += ' (ascending)';
+      tocTool2 += ' (newest first)';
    }
    if (sortBy == "datenewest") { 
-      tocTool1 += ' (tăng dần)';
-      tocTool2 += ' (cũ nhất)';
+      tocTool1 += ' (ascending)';
+      tocTool2 += ' (oldest first)';
    }
    if (postFilter != '') {
-      tocTool3 = 'Nhấp để hiển thị tất cả các bài viết';
+      tocTool3 = 'Click to show all posts';
    }
    tocTable += '<table>';
    tocTable += '<tr>';
-   tocTable += '<td class="toc-header-col1" style="font-weight: bold;">';
+   tocTable += '<td class="toc-header-col1">';
    tocTable += '<a href="javascript:toggleTitleSort();" title="' + tocTool1 + '">' + tocHead1 + '</a>';
    tocTable += '</td>';
-   tocTable += '<td class="toc-header-col2" style="font-weight: bold;">';
+   tocTable += '<td class="toc-header-col2">';
    tocTable += '<a href="javascript:toggleDateSort();" title="' + tocTool2 + '">' + tocHead2 + '</a>';
    tocTable += '</td>';
-   tocTable += '<td class="toc-header-col3" style="font-weight: bold;">';
+   tocTable += '<td class="toc-header-col3">';
    tocTable += '<a href="javascript:allPosts();" title="' + tocTool3 + '">' + tocHead3 + '</a>';
    tocTable += '</td>';
    tocTable += '</tr>';
@@ -215,10 +218,10 @@ function displayToc(filter) {
    }
    tocTable += '</table>';
    if (numDisplayed == postTitle.length) {
-      var tocNote = '<span class="toc-note">Hiển thị tất cả ' + postTitle.length + ' bài viết<br/><br/></span>'; }
+      var tocNote = '<span class="toc-note">Displaying all ' + postTitle.length + ' posts<br/></span>'; }
    else {
-      var tocNote = '<span class="toc-note">Hiển thị ' + numDisplayed + ' bài viết có nhãn \'';
-      tocNote += postFilter + '\' trong tổng số '+ postTitle.length + ' bài viết<br/><br/></span>';
+      var tocNote = '<span class="toc-note">Displaying ' + numDisplayed + ' posts labeled \'';
+      tocNote += postFilter + '\' of '+ postTitle.length + ' posts total<br/></span>';
    }
    tocdiv.innerHTML = tocNote + tocTable;
 } // end of displayToc
@@ -237,18 +240,19 @@ function toggleDateSort() {
    displayToc(postFilter);
 } // end toggleTitleSort
 
+
 function showToc() {
   if (tocLoaded) { 
      displayToc(postFilter);
      var toclink = document.getElementById("toclink");
    
   }
-  else { alert("Just wait... TOC is loading"); }
+  else { alert("Đợi chút nhé... Đang tải"); }
 }
 
 function hideToc() {
   var tocdiv = document.getElementById("toc");
   tocdiv.innerHTML = '';
   var toclink = document.getElementById("toclink");
-  toclink.innerHTML = '<a href="#" onclick="scroll(0,0); showToc(); Effect.toggle('+"'toc-result','blind');"+'">» Hiển thị mục lục</a> <img src="https://i.imgur.com/odUubKE.gif"/>';
+  toclink.innerHTML = '<a href="#" onclick="scroll(0,0); showToc(); Effect.toggle('+"'toc-result','blind');"+'">� Hiển Thị Mục Lục</a> <img src="https://1.bp.blogspot.com/-MMsDm64XZtM/VzQD8tvFJ-I/AAAAAAAAXhk/L2JgChUq2_w0vZHuPhaPGp_xGuA_YDaKQCLcB/s1600/new_1.gif"/>';
 }
